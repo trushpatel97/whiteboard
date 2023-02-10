@@ -3,7 +3,7 @@ require('dotenv').config();
 const { v4: uuidv4 } = require('uuid');
 
 // set up firestore connection
-const admin = require('firebase-admin');
+const admin = require('firebase-admin'); 
 const {auth} = require('google-auth-library'); 
 const serviceAccount = {
     "type": "service_account",
