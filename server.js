@@ -22,7 +22,7 @@ const serviceAccount = {
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount) 
 });
-const db = admin.firestore();
+const db = admin.firestore(); 
 // set up express server
 var express = require("express");
 var app = express();
