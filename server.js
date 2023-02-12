@@ -18,7 +18,7 @@ const serviceAccount = {
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chalkboard%40brilliant-will-377421.iam.gserviceaccount.com"
   }; 
-  
+   
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount) 
 });
