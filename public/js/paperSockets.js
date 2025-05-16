@@ -258,14 +258,34 @@ export function paperSockets() {
     }
 
     function setupVideoRoom() {
-        // connect to the peer server
-        myPeer = new Peer(socket.id);
+        // connect to the peer server using the official cloud server
+        myPeer = new Peer(socket.id, {
+            host: '0.peerjs.com',
+            port: 443,
+            secure: true,
+            debug: 2
+        });
+
+        // Add error handling for PeerJS
+        myPeer.on('error', (err) => {
+            console.error('PeerJS error:', err);
+            if (err.type === 'peer-unavailable') {
+                console.log('Peer is unavailable, retrying connection...');
+                setTimeout(() => setupVideoRoom(), 1000);
+            }
+        });
+
+        myPeer.on('open', (id) => {
+            console.log('My peer ID is: ' + id);
+        });
+
         // request to use video/audio from client device
         navigator.mediaDevices.getUserMedia({
             video: true,
             audio: true
         }).then(stream => {
-            stream.getTracks().forEach(track => track.enabled = false);
+            // Enable streams by default
+            stream.getTracks().forEach(track => track.enabled = true);
             // add clients own video stream to clients video grid
             addVideoStream(myVideo, stream);
 
